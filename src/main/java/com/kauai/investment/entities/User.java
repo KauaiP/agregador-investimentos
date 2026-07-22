@@ -1,5 +1,6 @@
 package com.kauai.investment.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,9 +21,11 @@ public class User implements Serializable {
 
     private String name;
     private String email;
+    @JsonIgnore
     private String password;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Portfolio> portfolios;
 
     public User(){}
