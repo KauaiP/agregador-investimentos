@@ -1,7 +1,6 @@
 package com.kauai.investment.resources;
 
 import com.kauai.investment.entities.User;
-import com.kauai.investment.repositories.UserRepository;
 import com.kauai.investment.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

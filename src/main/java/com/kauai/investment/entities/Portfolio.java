@@ -1,9 +1,11 @@
 package com.kauai.investment.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,8 +25,9 @@ public class Portfolio {
 
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "portfolio")
-    private List<Transaction> transactions;
+    private List<Transaction> transactions = new ArrayList<>();
 
     public Portfolio(){}
 
@@ -32,6 +35,11 @@ public class Portfolio {
         this.id = id;
         this.user = user;
         this.name = name;
+    }
+
+    public void addTransaction(Transaction transaction) {
+        transaction.setPortfolio(this);
+        transactions.add(transaction);
     }
 
     @Override
