@@ -1,5 +1,6 @@
 package com.kauai.investment.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class Asset {
     private String ticker;
     private String company_name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "asset")
     private List<Transaction> transactions;
 
