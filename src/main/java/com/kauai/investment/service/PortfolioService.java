@@ -4,6 +4,7 @@ import com.kauai.investment.entities.Asset;
 import com.kauai.investment.entities.Portfolio;
 import com.kauai.investment.entities.Transaction;
 import com.kauai.investment.entities.User;
+import com.kauai.investment.repositories.AssetRepository;
 import com.kauai.investment.repositories.PortfolioRepository;
 import com.kauai.investment.repositories.TransactionRepository;
 import com.kauai.investment.repositories.UserRepository;
@@ -22,6 +23,8 @@ public class PortfolioService {
     private TransactionRepository transactionRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AssetRepository assetRepository;
 
     public List<Portfolio> findAll(){
         return repository.findAll();
@@ -54,6 +57,9 @@ public class PortfolioService {
 
     public Transaction addNewTransaction(Long id, Transaction transaction) {
         Portfolio portfolio = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Carteira não encontrada"));
+        Long assetId = transaction.getAsset().getId();
+        Asset asset = assetRepository.findById(assetId).orElseThrow(() ->new IllegalArgumentException("Ativo não encontrado"));
+        transaction.setAsset(asset);
         portfolio.addTransaction(transaction);
         return transactionRepository.save(transaction);
     }

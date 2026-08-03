@@ -26,7 +26,7 @@ public class Portfolio {
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "portfolio")
+    @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER)
     private List<Transaction> transactions = new ArrayList<>();
 
     public Portfolio(){}
